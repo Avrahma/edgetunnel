@@ -1,43 +1,56 @@
 [custom]
-; ========== 规则集设置（ACL4SSR） ==========
+; 不要随意修改关键字，可能导致出错
+; ACL4SSR 规则模板
+
+; 规则集
 ruleset=全球直连,rules/ACL4SSR/Clash/LocalAreaNetwork.list
-ruleset=广告拦截,rules/ACL4SSR/Clash/BanAD.list
+ruleset=全球拦截,rules/ACL4SSR/Clash/BanAD.list
 ruleset=应用净化,rules/ACL4SSR/Clash/BanProgramAD.list
-ruleset=Google中国,rules/ACL4SSR/Clash/GoogleCN.list
-ruleset=Steam中国,rules/ACL4SSR/Clash/Ruleset/SteamCN.list
+ruleset=GoogleCN,rules/ACL4SSR/Clash/GoogleCN.list
+ruleset=SteamCN,rules/ACL4SSR/Clash/Ruleset/SteamCN.list
 ruleset=微软服务,rules/ACL4SSR/Clash/Microsoft.list
 ruleset=苹果服务,rules/ACL4SSR/Clash/Apple.list
 ruleset=电报信息,rules/ACL4SSR/Clash/Telegram.list
 ruleset=国外媒体,rules/ACL4SSR/Clash/ProxyMedia.list
-ruleset=GFW列表,rules/ACL4SSR/Clash/ProxyGFWlist.list
+ruleset=节点选择,rules/ACL4SSR/Clash/ProxyGFWlist.list
 ruleset=中国IP段,rules/ACL4SSR/Clash/ChinaIp.list
 ruleset=中国域名,rules/ACL4SSR/Clash/ChinaDomain.list
-ruleset=中国公司IP段,rules/ACL4SSR/Clash/ChinaCompanyIp.list
-ruleset=GeoIP中国,[]GEOIP,CN
-ruleset=默认规则,[]FINAL
+ruleset=中国公司IP,rules/ACL4SSR/Clash/ChinaCompanyIp.list
+ruleset=中国大陆,[]GEOIP,CN
+ruleset=最终规则,[]FINAL
 
-; ========== 策略组定义 ==========
-custom_proxy_group=节点选择`select`[]自动选择`[]全球直连`.* 
-
-custom_proxy_group=美国节点`url-test`.*美国.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=日本节点`url-test`.*日本.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=香港节点`url-test`.*香港.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=新加坡节点`url-test`.*新加坡.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=英国节点`url-test`.*英国.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=德国节点`url-test`.*德国.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=韩国节点`url-test`.*韩国.*`http://www.gstatic.com/generate_204`300,,50
-
-custom_proxy_group=国外媒体`select`[]美国节点`[]日本节点`[]香港节点`[]新加坡节点`[]英国节点`[]德国节点`[]韩国节点`[]自动选择`[]全球直连`.* 
-custom_proxy_group=电报信息`select`[]节点选择`[]全球直连`.* 
-custom_proxy_group=微软服务`select`[]全球直连`[]节点选择`.* 
-custom_proxy_group=苹果服务`select`[]节点选择`[]全球直连`.* 
-custom_proxy_group=全球直连`select`[]DIRECT`[]节点选择`[]自动选择
-custom_proxy_group=广告拦截`select`[]REJECT`[]DIRECT
-custom_proxy_group=应用净化`select`[]REJECT`[]DIRECT
-custom_proxy_group=默认规则`select`[]节点选择`[]全球直连`[]自动选择`.* 
-
+; 策略组定义
+; 自动选择组：所有节点自动测速选择最优，不能被其他组引用，防止循环
 custom_proxy_group=自动选择`url-test`.*`http://www.gstatic.com/generate_204`300,,50
 
-; ========== 开关配置 ==========
+; 节点选择组：手动选择节点，引用具体国家节点和自动选择，避免引用全球直连
+custom_proxy_group=节点选择`select`[]自动选择`[]美国节点`[]日本节点`[]香港节点`[]新加坡节点`[]英国节点`[]德国节点`[]韩国节点
+
+; 各国家节点分组，手动选择具体国家节点组，节点组名称请和你配置中的节点组对应
+custom_proxy_group=美国节点`select`[]自动选择
+custom_proxy_group=日本节点`select`[]自动选择
+custom_proxy_group=香港节点`select`[]自动选择
+custom_proxy_group=新加坡节点`select`[]自动选择
+custom_proxy_group=英国节点`select`[]自动选择
+custom_proxy_group=德国节点`select`[]自动选择
+custom_proxy_group=韩国节点`select`[]自动选择
+
+; 微软服务、苹果服务、电报信息、国外媒体等组直接引用节点选择，节点选择里面包含自动选择和国家节点
+custom_proxy_group=微软服务`select`[]节点选择
+custom_proxy_group=苹果服务`select`[]节点选择
+custom_proxy_group=电报信息`select`[]节点选择
+custom_proxy_group=国外媒体`select`[]节点选择
+
+; 全球直连组，纯直连，不引用节点选择，避免循环
+custom_proxy_group=全球直连`select`[]DIRECT
+
+; 拦截组
+custom_proxy_group=全球拦截`select`[]REJECT`[]DIRECT
+custom_proxy_group=应用净化`select`[]REJECT`[]DIRECT
+
+; 漏网之鱼组，尝试走节点选择，最后直连或自动选择兜底
+custom_proxy_group=漏网之鱼`select`[]节点选择`[]全球直连`[]自动选择
+
+; 启用规则生成器，覆盖原规则
 enable_rule_generator=true
 overwrite_original_rules=true
