@@ -16,6 +16,25 @@ ruleset=全球直连,rules/ACL4SSR/Clash/ChinaCompanyIp.list
 ruleset=全球直连,[]GEOIP,CN
 ruleset=漏网之鱼,[]FINAL
 
+; 增加国内外自动分流规则（让自动分流2走）
+rule=RULE-SET,中国IP段,全球直连
+rule=RULE-SET,中国域名,全球直连
+rule=GEOIP,CN,全球直连
+rule=DOMAIN-SUFFIX,cn,全球直连
+rule=DOMAIN-SUFFIX,local,全球直连
+rule=DOMAIN-KEYWORD,localhost,全球直连
+rule=IP-CIDR,127.0.0.0/8,全球直连
+
+rule=RULE-SET,微软服务,节点选择
+rule=RULE-SET,苹果服务,节点选择
+rule=RULE-SET,电报信息,节点选择
+rule=RULE-SET,国外媒体,节点选择
+
+rule=RULE-SET,全球拦截,全球拦截
+rule=RULE-SET,应用净化,应用净化
+
+rule=FINAL,智能分流
+
 ; 策略组配置
 
 ; 原自动选择（自动测速所有节点）
@@ -73,7 +92,7 @@ custom_proxy_group=应用净化`select`[]REJECT`[]DIRECT
 ; 漏网之鱼，兜底走节点选择再直连
 custom_proxy_group=漏网之鱼`select`[]节点选择`[]全球直连
 
-; 新增智能分流组：国内直连，国外自动选最快代理
+; 智能分流组：国内直连，国外自动选最快代理
 custom_proxy_group=智能分流`select`[]全球直连`[]自动选择2
 
 enable_rule_generator=true
