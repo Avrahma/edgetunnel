@@ -16,10 +16,6 @@ ruleset=全球直连,rules/ACL4SSR/Clash/ChinaCompanyIp.list
 ruleset=全球直连,[]GEOIP,CN
 ruleset=漏网之鱼,[]FINAL
 
-; 新增智能分流规则 — 国内流量走直连，国外走自动选择
-ruleset=智能分流,[]GEOIP,CN
-ruleset=智能分流,[]FINAL
-
 ; 策略组配置
 
 ; 自动选择测速组（不能被其他组引用，防止循环）
@@ -61,21 +57,18 @@ custom_proxy_group=柬埔寨`url-test`柬埔寨.*`http://www.gstatic.com/generat
 custom_proxy_group=老挝`url-test`老挝.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=文莱`url-test`文莱.*`http://www.gstatic.com/generate_204`300,,50
 
-; 新增智能分流组（国内走直连，国外走自动选择）
-custom_proxy_group=智能分流`select`[]全球直连`[]自动选择
-
-; 服务规则走智能分流
-custom_proxy_group=微软服务`select`[]智能分流
-custom_proxy_group=苹果服务`select`[]智能分流
-custom_proxy_group=电报信息`select`[]智能分流
-custom_proxy_group=国外媒体`select`[]智能分流
+; 各大服务分流，全部走节点选择组
+custom_proxy_group=微软服务`select`[]节点选择
+custom_proxy_group=苹果服务`select`[]节点选择
+custom_proxy_group=电报信息`select`[]节点选择
+custom_proxy_group=国外媒体`select`[]节点选择
 
 ; 广告及应用净化拦截组
 custom_proxy_group=全球拦截`select`[]REJECT`[]DIRECT
 custom_proxy_group=应用净化`select`[]REJECT`[]DIRECT
 
-; 漏网之鱼走智能分流兜底
-custom_proxy_group=漏网之鱼`select`[]智能分流
+; 漏网之鱼，兜底走节点选择再直连
+custom_proxy_group=漏网之鱼`select`[]节点选择`[]全球直连
 
 enable_rule_generator=true
 overwrite_original_rules=true
