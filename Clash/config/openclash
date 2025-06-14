@@ -1,5 +1,6 @@
 [custom]
-; 规则集示例（你可按需增减）
+
+; --- 规则集 ---
 ruleset=全球直连,rules/ACL4SSR/Clash/LocalAreaNetwork.list
 ruleset=全球拦截,rules/ACL4SSR/Clash/BanAD.list
 ruleset=应用净化,rules/ACL4SSR/Clash/BanProgramAD.list
@@ -14,18 +15,17 @@ ruleset=中国公司IP,rules/ACL4SSR/Clash/ChinaCompanyIp.list
 ruleset=中国大陆,[]GEOIP,CN
 ruleset=最终规则,[]FINAL
 
-; ---- 策略组配置 ----
+; --- 节点测速组 ---
+; 注意：这里填写你实际的节点名称，必须是proxy下定义的节点，且只能是节点名列表，不能引用策略组
+custom_proxy_group=美国测速`url-test`[US-节点1,US-节点2,US-节点3]`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=日本测速`url-test`[JP-节点1,JP-节点2]`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=新加坡测速`url-test`[SG-节点1,SG-节点2]`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=韩国测速`url-test`[KR-节点1,KR-节点2]`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=香港测速`url-test`[HK-节点1,HK-节点2]`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=英国测速`url-test`[UK-节点1,UK-节点2]`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=德国测速`url-test`[DE-节点1,DE-节点2]`http://www.gstatic.com/generate_204`300,,50
 
-; 自动测速组（url-test），测速各国家节点，不能被其他组引用，避免循环
-custom_proxy_group=美国测速`url-test`[]美国节点`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=日本测速`url-test`[]日本节点`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=新加坡测速`url-test`[]新加坡节点`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=韩国测速`url-test`[]韩国节点`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=香港测速`url-test`[]香港节点`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=英国测速`url-test`[]英国节点`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=德国测速`url-test`[]德国节点`http://www.gstatic.com/generate_204`300,,50
-
-; 选择组，自动从对应测速组选最优节点（select）
+; --- 国家选择组，自动选最快测速节点 ---
 custom_proxy_group=美国节点`select`[]美国测速
 custom_proxy_group=日本节点`select`[]日本测速
 custom_proxy_group=新加坡节点`select`[]新加坡测速
@@ -34,24 +34,19 @@ custom_proxy_group=香港节点`select`[]香港测速
 custom_proxy_group=英国节点`select`[]英国测速
 custom_proxy_group=德国节点`select`[]德国测速
 
-; 节点选择组，引用所有国家选择组，给规则用的主组
+; --- 节点选择总组，规则里用这个组即可 ---
 custom_proxy_group=节点选择`select`[]美国节点`[]日本节点`[]新加坡节点`[]韩国节点`[]香港节点`[]英国节点`[]德国节点
 
-; 全球直连组，只包含DIRECT，避免循环
+; --- 其他特殊策略组 ---
 custom_proxy_group=全球直连`select`[]DIRECT
-
-; 微软、苹果、电报、国外媒体组，引用节点选择组
 custom_proxy_group=微软服务`select`[]节点选择
 custom_proxy_group=苹果服务`select`[]节点选择
 custom_proxy_group=电报信息`select`[]节点选择
 custom_proxy_group=国外媒体`select`[]节点选择
-
-; 拦截组
 custom_proxy_group=全球拦截`select`[]REJECT`[]DIRECT
 custom_proxy_group=应用净化`select`[]REJECT`[]DIRECT
-
-; 漏网之鱼，兜底，先走节点选择，再走直连
 custom_proxy_group=漏网之鱼`select`[]节点选择`[]全球直连
 
+; 开启自动生成规则和覆盖原始规则
 enable_rule_generator=true
 overwrite_original_rules=true
