@@ -16,38 +16,70 @@ ruleset=中国公司IP,rules/ACL4SSR/Clash/ChinaCompanyIp.list
 ruleset=中国大陆,[]GEOIP,CN
 ruleset=最终规则,[]FINAL
 
-; 代理组
+; 代理组定义（自动测速切换故障节点）
 
-; 自动测速组，不能被引用，防止循环
-custom_proxy_group=自动选择`url-test`.*`http://www.gstatic.com/generate_204`300,,50
-
-; 全球直连，只含DIRECT，不引用其他组
+; 全球直连，只用DIRECT，避免循环
 custom_proxy_group=全球直连`select`[]DIRECT
 
-; 节点选择组，引用自动选择和全球直连
-custom_proxy_group=节点选择`select`[]自动选择`[]全球直连
+; 美国节点，自动测速
+custom_proxy_group=美国节点`url-test`[]美国节点`http://www.gstatic.com/generate_204`300,5,50
 
-; 各国代理组，只引用自动选择，不引用其他组，避免循环
-custom_proxy_group=美国`select`[]自动选择
-custom_proxy_group=日本`select`[]自动选择
-custom_proxy_group=香港`select`[]自动选择
-custom_proxy_group=新加坡`select`[]自动选择
-custom_proxy_group=英国`select`[]自动选择
-custom_proxy_group=德国`select`[]自动选择
-custom_proxy_group=韩国`select`[]自动选择
-custom_proxy_group=GoogleCN`select`[]自动选择
+; 日本节点，自动测速
+custom_proxy_group=日本节点`url-test`[]日本节点`http://www.gstatic.com/generate_204`300,5,50
 
-; 微软、苹果、电报、国外媒体组引用节点选择
+; 香港节点，自动测速
+custom_proxy_group=香港节点`url-test`[]香港节点`http://www.gstatic.com/generate_204`300,5,50
+
+; 新加坡节点，自动测速
+custom_proxy_group=新加坡节点`url-test`[]新加坡节点`http://www.gstatic.com/generate_204`300,5,50
+
+; 英国节点，自动测速
+custom_proxy_group=英国节点`url-test`[]英国节点`http://www.gstatic.com/generate_204`300,5,50
+
+; 德国节点，自动测速
+custom_proxy_group=德国节点`url-test`[]德国节点`http://www.gstatic.com/generate_204`300,5,50
+
+; 韩国节点，自动测速
+custom_proxy_group=韩国节点`url-test`[]韩国节点`http://www.gstatic.com/generate_204`300,5,50
+
+; GoogleCN节点，自动测速
+custom_proxy_group=GoogleCN`url-test`[]GoogleCN`http://www.gstatic.com/generate_204`300,5,50
+
+; SteamCN节点，自动测速
+custom_proxy_group=SteamCN`url-test`[]SteamCN`http://www.gstatic.com/generate_204`300,5,50
+
+; 俄罗斯节点，自动测速
+custom_proxy_group=俄罗斯节点`url-test`[]俄罗斯节点`http://www.gstatic.com/generate_204`300,5,50
+
+; 法国节点，自动测速
+custom_proxy_group=法国节点`url-test`[]法国节点`http://www.gstatic.com/generate_204`300,5,50
+
+; 印度节点，自动测速
+custom_proxy_group=印度节点`url-test`[]印度节点`http://www.gstatic.com/generate_204`300,5,50
+
+; 巴西节点，自动测速
+custom_proxy_group=巴西节点`url-test`[]巴西节点`http://www.gstatic.com/generate_204`300,5,50
+
+; 节点选择组，整合所有国家节点和全球直连
+custom_proxy_group=节点选择`select`[]美国节点`[]日本节点`[]香港节点`[]新加坡节点`[]英国节点`[]德国节点`[]韩国节点`[]GoogleCN`[]SteamCN`[]俄罗斯节点`[]法国节点`[]印度节点`[]巴西节点`[]全球直连
+
+; 微软服务组，引用节点选择
 custom_proxy_group=微软服务`select`[]节点选择
+
+; 苹果服务组，引用节点选择
 custom_proxy_group=苹果服务`select`[]节点选择
+
+; 电报信息组，引用节点选择
 custom_proxy_group=电报信息`select`[]节点选择
+
+; 国外媒体组，引用节点选择
 custom_proxy_group=国外媒体`select`[]节点选择
 
 ; 拦截组
 custom_proxy_group=全球拦截`select`[]REJECT`[]DIRECT
 custom_proxy_group=应用净化`select`[]REJECT`[]DIRECT
 
-; 漏网之鱼，兜底，先走节点选择再全球直连
+; 漏网之鱼，兜底用节点选择和全球直连
 custom_proxy_group=漏网之鱼`select`[]节点选择`[]全球直连
 
 enable_rule_generator=true
