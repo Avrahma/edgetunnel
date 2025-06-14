@@ -1,45 +1,45 @@
-rules:
-  - IP-CIDR,192.168.100.1/32,🛑 全球拦截
-  - IP-CIDR,192.168.111.1/32,♻️ 时光太浅1994
-  - RULE-SET,applications,DIRECT
-  - RULE-SET,private,DIRECT
-  - RULE-SET,reject,🛑 全球拦截
-  - RULE-SET,ChinaIP,DIRECT
-  - RULE-SET,ChinaIP6,DIRECT
-  - RULE-SET,Spotify,🎵 Spotify
-  - RULE-SET,Telegram,♻️ 时光太浅1994
-  - RULE-SET,Netflix,🎬 Netflix
-  - RULE-SET,Discord,♻️ 时光太浅1994
-  - RULE-SET,YouTube,🎬 YouTube
-  - RULE-SET,Twitch,♻️ 时光太浅1994
-  - RULE-SET,HBO,🎬 HBO
-  - RULE-SET,DisneyPlus,🎬 DisneyPlus
-  - RULE-SET,Apple,♻️ 时光太浅1994
-  - RULE-SET,Speedtest,♻️ 时光太浅1994
-  - RULE-SET,NordVPN,♻️ 时光太浅1994
-  - RULE-SET,TaiwanIP,DIRECT
-  - RULE-SET,JapanIP,DIRECT
-  - RULE-SET,KoreaIP,DIRECT
-  - RULE-SET,GlobalMedia,♻️ 时光太浅1994
-  - RULE-SET,google,DIRECT
-  - RULE-SET,local,DIRECT
-  - RULE-SET,DlerCloud,DIRECT
-  - MATCH,DIRECT
+[custom]
+;不要随意改变关键字，否则会导致出错
+;acl4SSR规则
 
+;去广告：支持
+;自动测速：支持
+;微软分流：支持
+;苹果分流：支持
+;增强中国IP段：支持
+;增强国外GFW：支持
 
-; 策略组定义
-custom_proxy_group=🚀 节点选择`select`[]♻️ 时光太浅1994`[]DIRECT`.*  
-custom_proxy_group=♻️ 时光太浅1994`url-test`.*`http://www.gstatic.com/generate_204`300,,50  
-custom_proxy_group=🌍 国外媒体`select`[]🚀 节点选择`[]♻️ 时光太浅1994`[]🎯 全球直连`.*  
-custom_proxy_group=📲 电报信息`select`[]🚀 节点选择`[]🎯 全球直连`.*  
-custom_proxy_group=Ⓜ️ 微软服务`select`[]🎯 全球直连`[]🚀 节点选择`.*  
-custom_proxy_group=🍎 苹果服务`select`[]🚀 节点选择`[]🎯 全球直连`.*  
-custom_proxy_group=📢 谷歌FCM`select`[]🚀 节点选择`[]🎯 全球直连`[]♻️ 时光太浅1994`.*  
-custom_proxy_group=🎯 全球直连`select`[]DIRECT`[]🚀 节点选择`[]♻️ 时光太浅1994  
-custom_proxy_group=🛑 全球拦截`select`[]REJECT`[]DIRECT  
-custom_proxy_group=🍃 应用净化`select`[]REJECT`[]DIRECT  
-custom_proxy_group=🐟 漏网之鱼`select`[]🚀 节点选择`[]🎯 全球直连`[]♻️ 时光太浅1994`.*  
+ruleset=🎯 全球直连,rules/ACL4SSR/Clash/LocalAreaNetwork.list
+ruleset=🛑 全球拦截,rules/ACL4SSR/Clash/BanAD.list
+ruleset=🍃 应用净化,rules/ACL4SSR/Clash/BanProgramAD.list
+ruleset=🎯 全球直连,rules/ACL4SSR/Clash/GoogleCN.list
+ruleset=🎯 全球直连,rules/ACL4SSR/Clash/Ruleset/SteamCN.list
+ruleset=Ⓜ️ 微软服务,rules/ACL4SSR/Clash/Microsoft.list
+ruleset=🍎 苹果服务,rules/ACL4SSR/Clash/Apple.list
+ruleset=📲 电报信息,rules/ACL4SSR/Clash/Telegram.list
+ruleset=🌍 国外媒体,rules/ACL4SSR/Clash/ProxyMedia.list
+ruleset=🚀 节点选择,rules/ACL4SSR/Clash/ProxyGFWlist.list
+ruleset=🎯 全球直连,rules/ACL4SSR/Clash/ChinaIp.list
+ruleset=🎯 全球直连,rules/ACL4SSR/Clash/ChinaDomain.list
+ruleset=🎯 全球直连,rules/ACL4SSR/Clash/ChinaCompanyIp.list
+;ruleset=🎯 全球直连,[]GEOIP,LAN
+ruleset=🎯 全球直连,[]GEOIP,CN
+ruleset=🐟 漏网之鱼,[]FINAL
 
-; 启用规则生成器
-enable_rule_generator=true  
-overwrite_original_rules=true  
+custom_proxy_group=🚀 节点选择`select`[]♻️ 自动选择`[] 香港`[] 美国`[] 新加坡`[] 日本DIRECT`.*
+custom_proxy_group= 自动选择`url-test`.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group= 香港`url-test`.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group= 美国`url-test`.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group= 日本`url-test`.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group= 新加坡`url-test`.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=🌍 国外媒体`select`[]🚀 节点选择`[]♻️ 自动选择`[]🎯 全球直连`.*
+custom_proxy_group=📲 电报信息`select`[]🚀 节点选择`[]🎯 全球直连`.*
+custom_proxy_group=Ⓜ️ 微软服务`select`[]🎯 全球直连`[]🚀 节点选择`.*
+custom_proxy_group=🍎 苹果服务`select`[]🚀 节点选择`[]🎯 全球直连`.*
+custom_proxy_group=🎯 全球直连`select`[]DIRECT`[]🚀 节点选择`[]♻️ 自动选择
+custom_proxy_group=🛑 全球拦截`select`[]REJECT`[]DIRECT
+custom_proxy_group=🍃 应用净化`select`[]REJECT`[]DIRECT
+custom_proxy_group=🐟 漏网之鱼`select`[]🚀 节点选择`[]🎯 全球直连`[]♻️ 自动选择`.*
+
+enable_rule_generator=true
+overwrite_original_rules=true
