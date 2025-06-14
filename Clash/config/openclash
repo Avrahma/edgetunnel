@@ -18,28 +18,26 @@ ruleset=最终规则,[]FINAL
 
 ; 代理组
 
-; 自动测速组，不能被引用
+; 自动测速组，不能被引用，防止循环
 custom_proxy_group=自动选择`url-test`.*`http://www.gstatic.com/generate_204`300,,50
 
-; 全球直连，只包含DIRECT
+; 全球直连，只含DIRECT，不引用其他组
 custom_proxy_group=全球直连`select`[]DIRECT
 
-; 节点选择组，引用各国家节点和自动选择
-custom_proxy_group=节点选择`select`[]自动选择`[]美国节点`[]日本节点`[]香港节点`[]新加坡节点`[]英国节点`[]德国节点`[]韩国节点
+; 节点选择组，引用自动选择和全球直连
+custom_proxy_group=节点选择`select`[]自动选择`[]全球直连
 
-; 各国家节点组，只引用自动选择，防止循环
-custom_proxy_group=美国节点`select`[]自动选择
-custom_proxy_group=日本节点`select`[]自动选择
-custom_proxy_group=香港节点`select`[]自动选择
-custom_proxy_group=新加坡节点`select`[]自动选择
-custom_proxy_group=英国节点`select`[]自动选择
-custom_proxy_group=德国节点`select`[]自动选择
-custom_proxy_group=韩国节点`select`[]自动选择
-
-; 特别新增，GoogleCN 组必须定义
+; 各国代理组，只引用自动选择，不引用其他组，避免循环
+custom_proxy_group=美国`select`[]自动选择
+custom_proxy_group=日本`select`[]自动选择
+custom_proxy_group=香港`select`[]自动选择
+custom_proxy_group=新加坡`select`[]自动选择
+custom_proxy_group=英国`select`[]自动选择
+custom_proxy_group=德国`select`[]自动选择
+custom_proxy_group=韩国`select`[]自动选择
 custom_proxy_group=GoogleCN`select`[]自动选择
 
-; 微软、苹果、电报、国外媒体，引用节点选择
+; 微软、苹果、电报、国外媒体组引用节点选择
 custom_proxy_group=微软服务`select`[]节点选择
 custom_proxy_group=苹果服务`select`[]节点选择
 custom_proxy_group=电报信息`select`[]节点选择
@@ -49,7 +47,7 @@ custom_proxy_group=国外媒体`select`[]节点选择
 custom_proxy_group=全球拦截`select`[]REJECT`[]DIRECT
 custom_proxy_group=应用净化`select`[]REJECT`[]DIRECT
 
-; 漏网之鱼，兜底走节点选择和全球直连
+; 漏网之鱼，兜底，先走节点选择再全球直连
 custom_proxy_group=漏网之鱼`select`[]节点选择`[]全球直连
 
 enable_rule_generator=true
