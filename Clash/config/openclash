@@ -1,26 +1,31 @@
-[custom]
+rules:
+  - IP-CIDR,192.168.100.1/32,🛑 全球拦截
+  - IP-CIDR,192.168.111.1/32,♻️ 时光太浅1994
+  - RULE-SET,applications,DIRECT
+  - RULE-SET,private,DIRECT
+  - RULE-SET,reject,🛑 全球拦截
+  - RULE-SET,ChinaIP,DIRECT
+  - RULE-SET,ChinaIP6,DIRECT
+  - RULE-SET,Spotify,🎵 Spotify
+  - RULE-SET,Telegram,♻️ 时光太浅1994
+  - RULE-SET,Netflix,🎬 Netflix
+  - RULE-SET,Discord,♻️ 时光太浅1994
+  - RULE-SET,YouTube,🎬 YouTube
+  - RULE-SET,Twitch,♻️ 时光太浅1994
+  - RULE-SET,HBO,🎬 HBO
+  - RULE-SET,DisneyPlus,🎬 DisneyPlus
+  - RULE-SET,Apple,♻️ 时光太浅1994
+  - RULE-SET,Speedtest,♻️ 时光太浅1994
+  - RULE-SET,NordVPN,♻️ 时光太浅1994
+  - RULE-SET,TaiwanIP,DIRECT
+  - RULE-SET,JapanIP,DIRECT
+  - RULE-SET,KoreaIP,DIRECT
+  - RULE-SET,GlobalMedia,♻️ 时光太浅1994
+  - RULE-SET,google,DIRECT
+  - RULE-SET,local,DIRECT
+  - RULE-SET,DlerCloud,DIRECT
+  - MATCH,DIRECT
 
-; 本地访问控制规则
-rule=IP-CIDR,192.168.100.1/32,🛑 全球拦截
-rule=IP-CIDR,192.168.111.1/32,♻️ 时光太浅1994
-
-; acl4SSR 在线规则
-ruleset=🎯 全球直连,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/LocalAreaNetwork.list
-ruleset=🎯 全球直连,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/UnBan.list
-ruleset=🛑 全球拦截,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanAD.list
-ruleset=🍃 应用净化,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/BanProgramAD.list
-ruleset=📢 谷歌FCM,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/GoogleFCM.list
-ruleset=🎯 全球直连,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/GoogleCN.list
-ruleset=🎯 全球直连,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/SteamCN.list
-ruleset=Ⓜ️ 微软服务,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Microsoft.list
-ruleset=🍎 苹果服务,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Apple.list
-ruleset=📲 电报信息,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Telegram.list
-ruleset=🌍 国外媒体,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyMedia.list
-ruleset=🚀 节点选择,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ProxyLite.list
-ruleset=🎯 全球直连,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaDomain.list
-ruleset=🎯 全球直连,https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/ChinaCompanyIp.list
-ruleset=🎯 全球直连,[]GEOIP,CN
-ruleset=🐟 漏网之鱼,[]FINAL
 
 ; 策略组定义
 custom_proxy_group=🚀 节点选择`select`[]♻️ 时光太浅1994`[]DIRECT`.*  
