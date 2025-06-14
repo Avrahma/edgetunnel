@@ -1,5 +1,5 @@
 [custom]
-; 规则集
+; 规则集示例（你可按需增减）
 ruleset=全球直连,rules/ACL4SSR/Clash/LocalAreaNetwork.list
 ruleset=全球拦截,rules/ACL4SSR/Clash/BanAD.list
 ruleset=应用净化,rules/ACL4SSR/Clash/BanProgramAD.list
@@ -8,34 +8,39 @@ ruleset=微软服务,rules/ACL4SSR/Clash/Microsoft.list
 ruleset=苹果服务,rules/ACL4SSR/Clash/Apple.list
 ruleset=电报信息,rules/ACL4SSR/Clash/Telegram.list
 ruleset=国外媒体,rules/ACL4SSR/Clash/ProxyMedia.list
-ruleset=节点选择,rules/ACL4SSR/Clash/ProxyGFWlist.list
 ruleset=中国IP段,rules/ACL4SSR/Clash/ChinaIp.list
 ruleset=中国域名,rules/ACL4SSR/Clash/ChinaDomain.list
 ruleset=中国公司IP,rules/ACL4SSR/Clash/ChinaCompanyIp.list
 ruleset=中国大陆,[]GEOIP,CN
 ruleset=最终规则,[]FINAL
 
-; 策略组
+; ---- 策略组配置 ----
 
-; 自动测速组，不能被任何组引用，防止循环
-custom_proxy_group=自动选择`url-test`.*`http://www.gstatic.com/generate_204`300,,50
+; 自动测速组（url-test），测速各国家节点，不能被其他组引用，避免循环
+custom_proxy_group=美国测速`url-test`[]美国节点`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=日本测速`url-test`[]日本节点`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=新加坡测速`url-test`[]新加坡节点`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=韩国测速`url-test`[]韩国节点`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=香港测速`url-test`[]香港节点`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=英国测速`url-test`[]英国节点`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=德国测速`url-test`[]德国节点`http://www.gstatic.com/generate_204`300,,50
 
-; 全球直连组，只包含DIRECT，不能引用其他组，避免循环
+; 选择组，自动从对应测速组选最优节点（select）
+custom_proxy_group=美国节点`select`[]美国测速
+custom_proxy_group=日本节点`select`[]日本测速
+custom_proxy_group=新加坡节点`select`[]新加坡测速
+custom_proxy_group=韩国节点`select`[]韩国测速
+custom_proxy_group=香港节点`select`[]香港测速
+custom_proxy_group=英国节点`select`[]英国测速
+custom_proxy_group=德国节点`select`[]德国测速
+
+; 节点选择组，引用所有国家选择组，给规则用的主组
+custom_proxy_group=节点选择`select`[]美国节点`[]日本节点`[]新加坡节点`[]韩国节点`[]香港节点`[]英国节点`[]德国节点
+
+; 全球直连组，只包含DIRECT，避免循环
 custom_proxy_group=全球直连`select`[]DIRECT
 
-; 节点选择组，引用各国测速组和自动选择组，不引用全球直连，避免循环
-custom_proxy_group=节点选择`select`[]自动选择`[]美国节点`[]日本节点`[]香港节点`[]新加坡节点`[]英国节点`[]德国节点`[]韩国节点
-
-; 各国家节点组，自动测速并自动切换延迟最低节点
-custom_proxy_group=美国节点`url-test`[]美国节点`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=日本节点`url-test`[]日本节点`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=香港节点`url-test`[]香港节点`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=新加坡节点`url-test`[]新加坡节点`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=英国节点`url-test`[]英国节点`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=德国节点`url-test`[]德国节点`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=韩国节点`url-test`[]韩国节点`http://www.gstatic.com/generate_204`300,,50
-
-; 微软、苹果、电报、国外媒体组只引用节点选择组
+; 微软、苹果、电报、国外媒体组，引用节点选择组
 custom_proxy_group=微软服务`select`[]节点选择
 custom_proxy_group=苹果服务`select`[]节点选择
 custom_proxy_group=电报信息`select`[]节点选择
@@ -45,7 +50,7 @@ custom_proxy_group=国外媒体`select`[]节点选择
 custom_proxy_group=全球拦截`select`[]REJECT`[]DIRECT
 custom_proxy_group=应用净化`select`[]REJECT`[]DIRECT
 
-; 漏网之鱼组，兜底，先走节点选择，再走全球直连
+; 漏网之鱼，兜底，先走节点选择，再走直连
 custom_proxy_group=漏网之鱼`select`[]节点选择`[]全球直连
 
 enable_rule_generator=true
