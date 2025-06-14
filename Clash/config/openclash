@@ -1,6 +1,5 @@
 [custom]
 
-; 规则集配置
 ruleset=全球直连,rules/ACL4SSR/Clash/LocalAreaNetwork.list
 ruleset=全球拦截,rules/ACL4SSR/Clash/BanAD.list
 ruleset=应用净化,rules/ACL4SSR/Clash/BanProgramAD.list
@@ -16,40 +15,24 @@ ruleset=全球直连,rules/ACL4SSR/Clash/ChinaCompanyIp.list
 ruleset=全球直连,[]GEOIP,CN
 ruleset=漏网之鱼,[]FINAL
 
-; 增加国内外自动分流规则（让自动分流2走）
-rule=RULE-SET,中国IP段,全球直连
-rule=RULE-SET,中国域名,全球直连
-rule=GEOIP,CN,全球直连
-rule=DOMAIN-SUFFIX,cn,全球直连
-rule=DOMAIN-SUFFIX,local,全球直连
-rule=DOMAIN-KEYWORD,localhost,全球直连
-rule=IP-CIDR,127.0.0.0/8,全球直连
-
+; ---- 新增规则，国内用已有ruleset规则走全球直连，国外走智能分流 ----
+rule=RULE-SET,全球直连,全球直连
 rule=RULE-SET,微软服务,节点选择
 rule=RULE-SET,苹果服务,节点选择
 rule=RULE-SET,电报信息,节点选择
 rule=RULE-SET,国外媒体,节点选择
-
 rule=RULE-SET,全球拦截,全球拦截
 rule=RULE-SET,应用净化,应用净化
 
 rule=FINAL,智能分流
 
-; 策略组配置
+; 节点组配置
 
-; 原自动选择（自动测速所有节点）
 custom_proxy_group=自动选择`url-test`.*`http://www.gstatic.com/generate_204`300,,50
-
-; 新增 自动选择2，自动测速所有非DIRECT代理节点，选最快
 custom_proxy_group=自动选择2`url-test`^(?!DIRECT$).*`http://www.gstatic.com/generate_204`300,,50
-
-; 直连组，只含DIRECT
 custom_proxy_group=全球直连`select`[]DIRECT
-
-; 节点选择组，引用各国组 + 自动选择，不引用全球直连
 custom_proxy_group=节点选择`select`[]自动选择`[]美国`[]日本`[]香港`[]新加坡`[]英国`[]德国`[]韩国`[]法国`[]加拿大`[]澳大利亚`[]俄罗斯`[]印度`[]巴西`[]意大利`[]荷兰`[]西班牙`[]墨西哥`[]泰国`[]越南`[]菲律宾`[]马来西亚`[]印尼`[]缅甸`[]柬埔寨`[]老挝`[]文莱
 
-; 各国测速组
 custom_proxy_group=美国`url-test`美国.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=日本`url-test`日本.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=香港`url-test`香港.*`http://www.gstatic.com/generate_204`300,,50
@@ -68,7 +51,6 @@ custom_proxy_group=荷兰`url-test`荷兰.*`http://www.gstatic.com/generate_204`
 custom_proxy_group=西班牙`url-test`西班牙.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=墨西哥`url-test`墨西哥.*`http://www.gstatic.com/generate_204`300,,50
 
-; 东南亚测速组
 custom_proxy_group=泰国`url-test`泰国.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=越南`url-test`越南.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=菲律宾`url-test`菲律宾.*`http://www.gstatic.com/generate_204`300,,50
@@ -79,20 +61,16 @@ custom_proxy_group=柬埔寨`url-test`柬埔寨.*`http://www.gstatic.com/generat
 custom_proxy_group=老挝`url-test`老挝.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=文莱`url-test`文莱.*`http://www.gstatic.com/generate_204`300,,50
 
-; 服务分流
 custom_proxy_group=微软服务`select`[]节点选择
 custom_proxy_group=苹果服务`select`[]节点选择
 custom_proxy_group=电报信息`select`[]节点选择
 custom_proxy_group=国外媒体`select`[]节点选择
 
-; 拦截组
 custom_proxy_group=全球拦截`select`[]REJECT`[]DIRECT
 custom_proxy_group=应用净化`select`[]REJECT`[]DIRECT
 
-; 漏网之鱼，兜底走节点选择再直连
 custom_proxy_group=漏网之鱼`select`[]节点选择`[]全球直连
 
-; 智能分流组：国内直连，国外自动选最快代理
 custom_proxy_group=智能分流`select`[]全球直连`[]自动选择2
 
 enable_rule_generator=true
