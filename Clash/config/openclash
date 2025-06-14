@@ -1,7 +1,7 @@
 [custom]
 
-; 规则集
-ruleset=本地局域网,rules/ACL4SSR/Clash/LocalAreaNetwork.list
+; 规则集部分保持不变，只是把需要代理的规则改为指向【全局代理】组
+ruleset=全球直连,rules/ACL4SSR/Clash/LocalAreaNetwork.list
 ruleset=全球拦截,rules/ACL4SSR/Clash/BanAD.list
 ruleset=应用净化,rules/ACL4SSR/Clash/BanProgramAD.list
 ruleset=微软服务,rules/ACL4SSR/Clash/Microsoft.list
@@ -9,44 +9,70 @@ ruleset=苹果服务,rules/ACL4SSR/Clash/Apple.list
 ruleset=电报信息,rules/ACL4SSR/Clash/Telegram.list
 ruleset=国外媒体,rules/ACL4SSR/Clash/ProxyMedia.list
 ruleset=节点选择,rules/ACL4SSR/Clash/ProxyGFWlist.list
-ruleset=中国IP段,rules/ACL4SSR/Clash/ChinaIp.list
-ruleset=中国域名,rules/ACL4SSR/Clash/ChinaDomain.list
-ruleset=中国公司IP,rules/ACL4SSR/Clash/ChinaCompanyIp.list
-ruleset=中国大陆,[]GEOIP,CN
-ruleset=最终规则,[]FINAL
+ruleset=全球直连,rules/ACL4SSR/Clash/ChinaIp.list
+ruleset=全球直连,rules/ACL4SSR/Clash/ChinaDomain.list
+ruleset=全球直连,rules/ACL4SSR/Clash/ChinaCompanyIp.list
+ruleset=全球直连,[]GEOIP,CN
+ruleset=漏网之鱼,[]FINAL
 
-; 策略组
+; 策略组定义
 
-; 自动测速组，防止循环引用，不能被其他组引用
+; 自动测速组（不能被其他组引用）
 custom_proxy_group=自动选择`url-test`.*`http://www.gstatic.com/generate_204`300,,50
 
-; 全球直连组，只包含DIRECT，不能引用其他组，避免循环
+; 全球直连组，只走直连
 custom_proxy_group=全球直连`select`[]DIRECT
 
-; 节点选择组，只引用各国家节点和自动选择，不引用全球直连
-custom_proxy_group=节点选择`select`[]自动选择`[]美国节点`[]日本节点`[]香港节点`[]新加坡节点`[]英国节点`[]德国节点`[]韩国节点
+; 节点选择组（不引用全球直连）
+custom_proxy_group=节点选择`select`[]自动选择`[]美国`[]日本`[]香港`[]新加坡`[]英国`[]德国`[]韩国`[]法国`[]加拿大`[]澳大利亚`[]俄罗斯`[]印度`[]巴西`[]意大利`[]荷兰`[]西班牙`[]墨西哥`[]泰国`[]越南`[]菲律宾`[]马来西亚`[]印尼`[]缅甸`[]柬埔寨`[]老挝`[]文莱
 
-; 各国家节点组只引用自动选择，避免循环
-custom_proxy_group=美国节点`select`[]自动选择
-custom_proxy_group=日本节点`select`[]自动选择
-custom_proxy_group=香港节点`select`[]自动选择
-custom_proxy_group=新加坡节点`select`[]自动选择
-custom_proxy_group=英国节点`select`[]自动选择
-custom_proxy_group=德国节点`select`[]自动选择
-custom_proxy_group=韩国节点`select`[]自动选择
+; 各国节点组（测速自动切换失效）
+custom_proxy_group=美国`url-test`美国.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=日本`url-test`日本.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=香港`url-test`香港.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=新加坡`url-test`新加坡.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=英国`url-test`英国.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=德国`url-test`德国.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=韩国`url-test`韩国.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=法国`url-test`法国.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=加拿大`url-test`加拿大.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=澳大利亚`url-test`澳大利亚.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=俄罗斯`url-test`俄罗斯.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=印度`url-test`印度.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=巴西`url-test`巴西.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=意大利`url-test`意大利.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=荷兰`url-test`荷兰.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=西班牙`url-test`西班牙.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=墨西哥`url-test`墨西哥.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=泰国`url-test`泰国.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=越南`url-test`越南.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=菲律宾`url-test`菲律宾.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=马来西亚`url-test`马来西亚.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=印尼`url-test`印尼.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=缅甸`url-test`缅甸.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=柬埔寨`url-test`柬埔寨.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=老挝`url-test`老挝.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=文莱`url-test`文莱.*`http://www.gstatic.com/generate_204`300,,50
 
-; 微软、苹果、电报、国外媒体组只引用节点选择组
+; 各种服务引用节点选择组
 custom_proxy_group=微软服务`select`[]节点选择
 custom_proxy_group=苹果服务`select`[]节点选择
 custom_proxy_group=电报信息`select`[]节点选择
 custom_proxy_group=国外媒体`select`[]节点选择
 
-; 拦截组
+; 广告拦截
 custom_proxy_group=全球拦截`select`[]REJECT`[]DIRECT
 custom_proxy_group=应用净化`select`[]REJECT`[]DIRECT
 
-; 漏网之鱼组，兜底，先走节点选择，再直连
+; 漏网之鱼组兜底
 custom_proxy_group=漏网之鱼`select`[]节点选择`[]全球直连
+
+; **新增“全局代理”组**，默认走“全球直连”，你可选择单个国家实现全局代理
+custom_proxy_group=全局代理`select`[]全球直连`[]美国`[]日本`[]香港`[]新加坡`[]英国`[]德国`[]韩国`[]法国`[]加拿大`[]澳大利亚`[]俄罗斯`[]印度`[]巴西`[]意大利`[]荷兰`[]西班牙`[]墨西哥`[]泰国`[]越南`[]菲律宾`[]马来西亚`[]印尼`[]缅甸`[]柬埔寨`[]老挝`[]文莱
+
+; 修改你的规则文件，把所有需要全局代理的规则proxy改为“全局代理”，例如：
+; [DOMAIN-SUFFIX,example.com,全局代理]
+; 或你用的规则集ACL文件里对应改成“全局代理”组
 
 enable_rule_generator=true
 overwrite_original_rules=true
