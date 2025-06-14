@@ -15,7 +15,7 @@ ruleset=全球直连,rules/ACL4SSR/Clash/ChinaCompanyIp.list
 ruleset=全球直连,[]GEOIP,CN
 ruleset=漏网之鱼,[]FINAL
 
-; 规则分流，国内流量直接走全球直连（DIRECT）
+; 规则分流，国内流量走全球直连（DIRECT）
 rule=RULE-SET,全球直连,全球直连
 rule=RULE-SET,微软服务,节点选择
 rule=RULE-SET,苹果服务,节点选择
