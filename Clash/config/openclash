@@ -9,19 +9,16 @@ ruleset=微软服务,rules/ACL4SSR/Clash/Microsoft.list
 ruleset=苹果服务,rules/ACL4SSR/Clash/Apple.list
 ruleset=电报信息,rules/ACL4SSR/Clash/Telegram.list
 ruleset=国外媒体,rules/ACL4SSR/Clash/ProxyMedia.list
-ruleset=智能分流,rules/ACL4SSR/Clash/ProxyGFWlist.list
+ruleset=节点选择,rules/ACL4SSR/Clash/ProxyGFWlist.list
 ruleset=全球直连,rules/ACL4SSR/Clash/ChinaIp.list
 ruleset=全球直连,rules/ACL4SSR/Clash/ChinaDomain.list
 ruleset=全球直连,rules/ACL4SSR/Clash/ChinaCompanyIp.list
 ruleset=全球直连,[]GEOIP,CN
-ruleset=智能分流,[]FINAL
+ruleset=漏网之鱼,[]FINAL
 
 ; 策略组配置
 
-; 主策略组：实现国内直连、国外代理自动分流
-custom_proxy_group=智能分流`select`[]全球直连`[]节点选择
-
-; 自动选择测速组（不能被其他组引用）
+; 自动选择测速组（不能被其他组引用，防止循环）
 custom_proxy_group=自动选择`url-test`.*`http://www.gstatic.com/generate_204`300,,50
 
 ; 直连组
@@ -49,7 +46,7 @@ custom_proxy_group=荷兰`url-test`荷兰.*`http://www.gstatic.com/generate_204`
 custom_proxy_group=西班牙`url-test`西班牙.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=墨西哥`url-test`墨西哥.*`http://www.gstatic.com/generate_204`300,,50
 
-; 东南亚国家节点组
+; 东南亚节点组
 custom_proxy_group=泰国`url-test`泰国.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=越南`url-test`越南.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=菲律宾`url-test`菲律宾.*`http://www.gstatic.com/generate_204`300,,50
@@ -60,18 +57,24 @@ custom_proxy_group=柬埔寨`url-test`柬埔寨.*`http://www.gstatic.com/generat
 custom_proxy_group=老挝`url-test`老挝.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=文莱`url-test`文莱.*`http://www.gstatic.com/generate_204`300,,50
 
-; 各大服务分流（走 节点选择，间接受 智能分流 控制）
+; 各类服务
 custom_proxy_group=微软服务`select`[]节点选择
 custom_proxy_group=苹果服务`select`[]节点选择
 custom_proxy_group=电报信息`select`[]节点选择
 custom_proxy_group=国外媒体`select`[]节点选择
 
-; 广告及应用净化拦截组
+; 广告及净化
 custom_proxy_group=全球拦截`select`[]REJECT`[]DIRECT
 custom_proxy_group=应用净化`select`[]REJECT`[]DIRECT
 
-; 漏网之鱼走 智能分流，不再是节点选择
-custom_proxy_group=漏网之鱼`select`[]智能分流
+; 漏网之鱼
+custom_proxy_group=漏网之鱼`select`[]节点选择`[]全球直连
+
+; ✅ 自动选择2：国内直连 + 国外走代理
+custom_proxy_group=自动选择2`select`[]全球直连`[]节点选择
+
+; ✅ 智能分流：可以选择“自动选择2”实现智能分流
+custom_proxy_group=智能分流`select`[]自动选择2`[]节点选择`[]全球直连
 
 enable_rule_generator=true
 overwrite_original_rules=true
