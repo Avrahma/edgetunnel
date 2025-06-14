@@ -1,8 +1,6 @@
 [custom]
 
-; ==============================
-; 规则集配置（ACL4SSR）
-; ==============================
+; =============== 规则集配置 ===============
 ruleset=全球直连,rules/ACL4SSR/Clash/LocalAreaNetwork.list
 ruleset=全球拦截,rules/ACL4SSR/Clash/BanAD.list
 ruleset=应用净化,rules/ACL4SSR/Clash/BanProgramAD.list
@@ -18,20 +16,21 @@ ruleset=全球直连,rules/ACL4SSR/Clash/ChinaCompanyIp.list
 ruleset=全球直连,[]GEOIP,CN
 ruleset=漏网之鱼,[]FINAL
 
-; ==============================
-; 策略组配置
-; ==============================
+; =============== 策略组配置 ===============
 
-; 自动选择测速组（主要被“节点选择”引用）
+; 主策略组：智能分流（国内走直连，国外走自动选择）
+custom_proxy_group=智能分流`select`[]全球直连`[]自动选择
+
+; 自动测速组（不要被其他策略组引用）
 custom_proxy_group=自动选择`url-test`.*`http://www.gstatic.com/generate_204`300,,50
 
 ; 直连组
 custom_proxy_group=全球直连`select`[]DIRECT
 
-; 智能分流组（实现国内直连，国外代理）
+; 节点选择组（用于手动选择国家）
 custom_proxy_group=节点选择`select`[]自动选择`[]美国`[]日本`[]香港`[]新加坡`[]英国`[]德国`[]韩国`[]法国`[]加拿大`[]澳大利亚`[]俄罗斯`[]印度`[]巴西`[]意大利`[]荷兰`[]西班牙`[]墨西哥`[]泰国`[]越南`[]菲律宾`[]马来西亚`[]印尼`[]缅甸`[]柬埔寨`[]老挝`[]文莱
 
-; 各国测速组
+; 各国节点测速组
 custom_proxy_group=美国`url-test`美国.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=日本`url-test`日本.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=香港`url-test`香港.*`http://www.gstatic.com/generate_204`300,,50
@@ -50,7 +49,7 @@ custom_proxy_group=荷兰`url-test`荷兰.*`http://www.gstatic.com/generate_204`
 custom_proxy_group=西班牙`url-test`西班牙.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=墨西哥`url-test`墨西哥.*`http://www.gstatic.com/generate_204`300,,50
 
-; 东南亚国家组
+; 东南亚国家节点组
 custom_proxy_group=泰国`url-test`泰国.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=越南`url-test`越南.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=菲律宾`url-test`菲律宾.*`http://www.gstatic.com/generate_204`300,,50
@@ -61,21 +60,19 @@ custom_proxy_group=柬埔寨`url-test`柬埔寨.*`http://www.gstatic.com/generat
 custom_proxy_group=老挝`url-test`老挝.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=文莱`url-test`文莱.*`http://www.gstatic.com/generate_204`300,,50
 
-; 各类服务指定走“节点选择”
-custom_proxy_group=微软服务`select`[]节点选择
-custom_proxy_group=苹果服务`select`[]节点选择
-custom_proxy_group=电报信息`select`[]节点选择
-custom_proxy_group=国外媒体`select`[]节点选择
+; 各服务规则分流至智能分流组
+custom_proxy_group=微软服务`select`[]智能分流
+custom_proxy_group=苹果服务`select`[]智能分流
+custom_proxy_group=电报信息`select`[]智能分流
+custom_proxy_group=国外媒体`select`[]智能分流
 
-; 广告和净化
+; 广告与应用净化组
 custom_proxy_group=全球拦截`select`[]REJECT`[]DIRECT
 custom_proxy_group=应用净化`select`[]REJECT`[]DIRECT
 
-; 漏网之鱼走“节点选择”兜底
-custom_proxy_group=漏网之鱼`select`[]节点选择`[]全球直连
+; 漏网之鱼走智能分流
+custom_proxy_group=漏网之鱼`select`[]智能分流
 
-; ==============================
-; 控制设置
-; ==============================
+; =============== 启动规则生成器 ===============
 enable_rule_generator=true
 overwrite_original_rules=true
