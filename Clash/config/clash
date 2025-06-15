@@ -39,6 +39,12 @@ custom_proxy_group=漏网之鱼`select`[]节点选择`[]全球直连
 
 ; ======= 规则配置 =======
 rule=GEOIP,CN,全球直连
+rule=DOMAIN-KEYWORD,google,美国-智能分流
+rule=DOMAIN-KEYWORD,youtube,美国-智能分流
+rule=DOMAIN-KEYWORD,facebook,美国-智能分流
+rule=DOMAIN-KEYWORD,twitter,美国-智能分流
+rule=DOMAIN-SUFFIX,netflix.com,美国-智能分流
+rule=DOMAIN-SUFFIX,hulu.com,美国-智能分流
 rule=FINAL,美国-智能分流
 
 ; ======= 规则自动生成配置 =======
