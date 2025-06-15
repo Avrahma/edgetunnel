@@ -15,42 +15,11 @@ ruleset=全球直连,rules/ACL4SSR/Clash/ChinaCompanyIp.list
 ruleset=全球直连,[]GEOIP,CN
 ruleset=漏网之鱼,[]FINAL
 
-; ======= 智能测速分组（不被其他组引用） =======
+; ======= 智能测速基础组 =======
 custom_proxy_group=自动选择`url-test`.*`http://www.gstatic.com/generate_204`300,,50
-
-; ======= 直连组（避免循环引用） =======
 custom_proxy_group=全球直连`select`[]DIRECT
 
-; ======= 智能分流（所有国家） =======
-# 每个国家一个组，支持国内直连 + 国外只通过该国代理
-custom_proxy_group=美国-智能分流`select`[]全球直连`[]美国
-custom_proxy_group=日本-智能分流`select`[]全球直连`[]日本
-custom_proxy_group=香港-智能分流`select`[]全球直连`[]香港
-custom_proxy_group=新加坡-智能分流`select`[]全球直连`[]新加坡
-custom_proxy_group=英国-智能分流`select`[]全球直连`[]英国
-custom_proxy_group=德国-智能分流`select`[]全球直连`[]德国
-custom_proxy_group=韩国-智能分流`select`[]全球直连`[]韩国
-custom_proxy_group=法国-智能分流`select`[]全球直连`[]法国
-custom_proxy_group=加拿大-智能分流`select`[]全球直连`[]加拿大
-custom_proxy_group=澳大利亚-智能分流`select`[]全球直连`[]澳大利亚
-custom_proxy_group=俄罗斯-智能分流`select`[]全球直连`[]俄罗斯
-custom_proxy_group=印度-智能分流`select`[]全球直连`[]印度
-custom_proxy_group=巴西-智能分流`select`[]全球直连`[]巴西
-custom_proxy_group=意大利-智能分流`select`[]全球直连`[]意大利
-custom_proxy_group=荷兰-智能分流`select`[]全球直连`[]荷兰
-custom_proxy_group=西班牙-智能分流`select`[]全球直连`[]西班牙
-custom_proxy_group=墨西哥-智能分流`select`[]全球直连`[]墨西哥
-custom_proxy_group=泰国-智能分流`select`[]全球直连`[]泰国
-custom_proxy_group=越南-智能分流`select`[]全球直连`[]越南
-custom_proxy_group=菲律宾-智能分流`select`[]全球直连`[]菲律宾
-custom_proxy_group=马来西亚-智能分流`select`[]全球直连`[]马来西亚
-custom_proxy_group=印尼-智能分流`select`[]全球直连`[]印尼
-custom_proxy_group=缅甸-智能分流`select`[]全球直连`[]缅甸
-custom_proxy_group=柬埔寨-智能分流`select`[]全球直连`[]柬埔寨
-custom_proxy_group=老挝-智能分流`select`[]全球直连`[]老挝
-custom_proxy_group=文莱-智能分流`select`[]全球直连`[]文莱
-
-; ======= 各国测速组（可选，仅用于上面引用）=======
+; ======= 各国测速组 =======
 custom_proxy_group=美国`url-test`美国.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=日本`url-test`日本.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=香港`url-test`香港.*`http://www.gstatic.com/generate_204`300,,50
@@ -78,20 +47,48 @@ custom_proxy_group=柬埔寨`url-test`柬埔寨.*`http://www.gstatic.com/generat
 custom_proxy_group=老挝`url-test`老挝.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=文莱`url-test`文莱.*`http://www.gstatic.com/generate_204`300,,50
 
-; ======= 节点选择组（供规则中使用） =======
+; ======= 各国智能分流组（国内走直连，国外走选中国家）=======
+custom_proxy_group=美国-智能分流`select`[]全球直连`[]美国
+custom_proxy_group=日本-智能分流`select`[]全球直连`[]日本
+custom_proxy_group=香港-智能分流`select`[]全球直连`[]香港
+custom_proxy_group=新加坡-智能分流`select`[]全球直连`[]新加坡
+custom_proxy_group=英国-智能分流`select`[]全球直连`[]英国
+custom_proxy_group=德国-智能分流`select`[]全球直连`[]德国
+custom_proxy_group=韩国-智能分流`select`[]全球直连`[]韩国
+custom_proxy_group=法国-智能分流`select`[]全球直连`[]法国
+custom_proxy_group=加拿大-智能分流`select`[]全球直连`[]加拿大
+custom_proxy_group=澳大利亚-智能分流`select`[]全球直连`[]澳大利亚
+custom_proxy_group=俄罗斯-智能分流`select`[]全球直连`[]俄罗斯
+custom_proxy_group=印度-智能分流`select`[]全球直连`[]印度
+custom_proxy_group=巴西-智能分流`select`[]全球直连`[]巴西
+custom_proxy_group=意大利-智能分流`select`[]全球直连`[]意大利
+custom_proxy_group=荷兰-智能分流`select`[]全球直连`[]荷兰
+custom_proxy_group=西班牙-智能分流`select`[]全球直连`[]西班牙
+custom_proxy_group=墨西哥-智能分流`select`[]全球直连`[]墨西哥
+custom_proxy_group=泰国-智能分流`select`[]全球直连`[]泰国
+custom_proxy_group=越南-智能分流`select`[]全球直连`[]越南
+custom_proxy_group=菲律宾-智能分流`select`[]全球直连`[]菲律宾
+custom_proxy_group=马来西亚-智能分流`select`[]全球直连`[]马来西亚
+custom_proxy_group=印尼-智能分流`select`[]全球直连`[]印尼
+custom_proxy_group=缅甸-智能分流`select`[]全球直连`[]缅甸
+custom_proxy_group=柬埔寨-智能分流`select`[]全球直连`[]柬埔寨
+custom_proxy_group=老挝-智能分流`select`[]全球直连`[]老挝
+custom_proxy_group=文莱-智能分流`select`[]全球直连`[]文莱
+
+; ======= 统一策略组（供规则调用）=======
 custom_proxy_group=节点选择`select`[]美国-智能分流`[]日本-智能分流`[]香港-智能分流`[]新加坡-智能分流`[]英国-智能分流`[]德国-智能分流`[]韩国-智能分流`[]法国-智能分流`[]加拿大-智能分流`[]澳大利亚-智能分流`[]俄罗斯-智能分流`[]印度-智能分流`[]巴西-智能分流`[]意大利-智能分流`[]荷兰-智能分流`[]西班牙-智能分流`[]墨西哥-智能分流`[]泰国-智能分流`[]越南-智能分流`[]菲律宾-智能分流`[]马来西亚-智能分流`[]印尼-智能分流`[]缅甸-智能分流`[]柬埔寨-智能分流`[]老挝-智能分流`[]文莱-智能分流
 
-; ======= 其他服务 =======
+; ======= 特定服务策略 =======
 custom_proxy_group=微软服务`select`[]节点选择
 custom_proxy_group=苹果服务`select`[]节点选择
 custom_proxy_group=电报信息`select`[]节点选择
 custom_proxy_group=国外媒体`select`[]节点选择
 
-; ======= 广告拦截 =======
+; ======= 广告拦截策略 =======
 custom_proxy_group=全球拦截`select`[]REJECT`[]DIRECT
 custom_proxy_group=应用净化`select`[]REJECT`[]DIRECT
 
-; ======= 漏网之鱼 =======
+; ======= 漏网之鱼兜底 =======
 custom_proxy_group=漏网之鱼`select`[]节点选择`[]全球直连
 
 enable_rule_generator=true
