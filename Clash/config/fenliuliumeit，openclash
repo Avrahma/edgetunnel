@@ -101,3 +101,22 @@ enable_rule_generator=true
 
 ; 启用覆盖原始规则
 overwrite_original_rules=true
+
+#注意：需要再覆写的规则下加入下面的规则并修改要生效的网段
+#rules:
+  # 国内流量优先直连
+ # - GEOIP,CN,DIRECT
+
+  # 来自 113 网段的其它流量，走 ♻️ 时光太浅1994
+ # - SRC-IP-CIDR,192.168.113.0/24,香港|流媒体,no-resolve
+
+  # 其它 IP 段的规则
+ # - SRC-IP-CIDR,192.168.101.0/24,DIRECT,no-resolve
+ # - SRC-IP-CIDR,192.168.111.0/24,日本,no-resolve
+
+  # 本地回环地址
+ # - IP-CIDR,127.0.0.0/8,DIRECT
+
+  # 最后兜底
+ # - MATCH,DIRECT
+
