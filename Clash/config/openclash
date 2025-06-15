@@ -18,13 +18,13 @@ ruleset=漏网之鱼,[]FINAL
 
 ; ================== 策略组配置 ==================
 
-; “自动选择” 组，采用 url-test 方式测试所有以“自动选择”开头的节点，测试间隔300秒，超时50毫秒
+; 自动选择组，url-test测速，测试间隔300秒，超时50毫秒
 custom_proxy_group=自动选择`url-test`自动选择.*`http://www.gstatic.com/generate_204`300,,50
 
-; 直连组，只包含直连节点DIRECT，手动选择
+; 直连组，只包含DIRECT节点
 custom_proxy_group=全球直连`select`DIRECT
 
-; 节点选择组，包含所有国家的主节点组，支持手动选择
+; 节点选择组，包含所有国家主节点组，手动选择
 custom_proxy_group=节点选择`select`自动选择`美国`日本`香港`新加坡`英国`德国`韩国`法国`加拿大`澳大利亚`俄罗斯`印度`巴西`意大利`荷兰`西班牙`墨西哥`泰国`越南`菲律宾`马来西亚`印尼`缅甸`柬埔寨`老挝`文莱
 
 ; -------- 各国自动测速分组 --------
@@ -55,13 +55,13 @@ custom_proxy_group=柬埔寨`url-test`柬埔寨.*`http://www.gstatic.com/generat
 custom_proxy_group=老挝`url-test`老挝.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=文莱`url-test`文莱.*`http://www.gstatic.com/generate_204`300,,50
 
-; -------- 各国奈飞流媒体节点组 --------
+; -------- 各国流媒体节点组 --------
 custom_proxy_group=美国|流媒体`url-test`美国.*流媒体.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=日本|流媒体`url-test`日本.*流媒体.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=香港|流媒体`url-test`香港.*流媒体.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=新加坡|流媒体`url-test`新加坡.*流媒体.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=英国|流媒体`url-test`英国.*流媒体.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=德国|流-media`url-test`德国.*流媒体.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=德国|流媒体`url-test`德国.*流媒体.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=韩国|流媒体`url-test`韩国.*流媒体.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=法国|流媒体`url-test`法国.*流媒体.*`http://www.gstatic.com/generate_204`300,,50
 custom_proxy_group=加拿大|流媒体`url-test`加拿大.*流媒体.*`http://www.gstatic.com/generate_204`300,,50
@@ -96,5 +96,8 @@ custom_proxy_group=应用净化`select`REJECT`DIRECT
 ; -------- 漏网之鱼兜底策略组 --------
 custom_proxy_group=漏网之鱼`select`节点选择`全球直连
 
+; 启用规则生成器
 enable_rule_generator=true
+
+; 启用覆盖原始规则
 overwrite_original_rules=true
