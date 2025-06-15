@@ -19,7 +19,7 @@ ruleset=漏网之鱼,[]FINAL
 ; 策略组配置
 
 ; 自动选择测速组（不能被其他组引用，防止循环）
-custom_proxy_group=自动选择`url-test`.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=自动选择`url-test`.*`http://www.gstatic.com/generate_204`60,,50
 
 ; 直连组（只包含DIRECT，避免循环）
 custom_proxy_group=全球直连`select`[]DIRECT
