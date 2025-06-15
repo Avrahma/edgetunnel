@@ -1,10 +1,10 @@
 [custom]
 
-; 规则集配置
+; ================== 规则集配置 ==================
 ruleset=全球直连,rules/ACL4SSR/Clash/LocalAreaNetwork.list
 ruleset=全球拦截,rules/ACL4SSR/Clash/BanAD.list
 ruleset=应用净化,rules/ACL4SSR/Clash/BanProgramAD.list
-; ruleset=GoogleCN,rules/ACL4SSR/Clash/GoogleCN.list  ; 已注释，避免无节点错误
+; ruleset=GoogleCN,rules/ACL4SSR/Clash/GoogleCN.list
 ruleset=微软服务,rules/ACL4SSR/Clash/Microsoft.list
 ruleset=苹果服务,rules/ACL4SSR/Clash/Apple.list
 ruleset=电报信息,rules/ACL4SSR/Clash/Telegram.list
@@ -16,59 +16,81 @@ ruleset=全球直连,rules/ACL4SSR/Clash/ChinaCompanyIp.list
 ruleset=全球直连,[]GEOIP,CN
 ruleset=漏网之鱼,[]FINAL
 
-; 策略组配置
+; ================== 策略组配置 ==================
 
-; 自动选择测速组（不能被其他组引用，防止循环）
-custom_proxy_group=自动选择`url-test`.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=自动选择url-test.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=全球直连select[]DIRECT
 
-; 直连组（只包含DIRECT，避免循环）
-custom_proxy_group=全球直连`select`[]DIRECT
+custom_proxy_group=节点选择select[]自动选择[]美国[]日本[]香港[]新加坡[]英国[]德国[]韩国[]法国[]加拿大[]澳大利亚[]俄罗斯[]印度[]巴西[]意大利[]荷兰[]西班牙[]墨西哥[]泰国[]越南[]菲律宾[]马来西亚[]印尼[]缅甸[]柬埔寨[]老挝[]文莱
 
-; 节点选择组（引用各国组 + 自动选择，不引用全球直连）
-custom_proxy_group=节点选择`select`[]自动选择`[]美国`[]日本`[]香港`[]新加坡`[]英国`[]德国`[]韩国`[]法国`[]加拿大`[]澳大利亚`[]俄罗斯`[]印度`[]巴西`[]意大利`[]荷兰`[]西班牙`[]墨西哥`[]泰国`[]越南`[]菲律宾`[]马来西亚`[]印尼`[]缅甸`[]柬埔寨`[]老挝`[]文莱
+; -------- 各国自动测速分组 --------
+custom_proxy_group=美国url-test美国.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=日本url-test日本.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=香港url-test香港.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=新加坡url-test新加坡.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=英国url-test英国.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=德国url-test德国.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=韩国url-test韩国.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=法国url-test法国.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=加拿大url-test加拿大.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=澳大利亚url-test澳大利亚.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=俄罗斯url-test俄罗斯.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=印度url-test印度.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=巴西url-test巴西.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=意大利url-test意大利.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=荷兰url-test荷兰.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=西班牙url-test西班牙.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=墨西哥url-test墨西哥.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=泰国url-test泰国.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=越南url-test越南.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=菲律宾url-test菲律宾.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=马来西亚url-test马来西亚.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=印尼url-test印尼.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=缅甸url-test缅甸.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=柬埔寨url-test柬埔寨.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=老挝url-test老挝.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=文莱url-test文莱.*http://www.gstatic.com/generate_204300,,50
 
-; 各国节点组（自动测速，自动切换失效节点）
-custom_proxy_group=美国`url-test`美国.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=日本`url-test`日本.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=香港`url-test`香港.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=新加坡`url-test`新加坡.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=英国`url-test`英国.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=德国`url-test`德国.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=韩国`url-test`韩国.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=法国`url-test`法国.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=加拿大`url-test`加拿大.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=澳大利亚`url-test`澳大利亚.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=俄罗斯`url-test`俄罗斯.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=印度`url-test`印度.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=巴西`url-test`巴西.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=意大利`url-test`意大利.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=荷兰`url-test`荷兰.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=西班牙`url-test`西班牙.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=墨西哥`url-test`墨西哥.*`http://www.gstatic.com/generate_204`300,,50
+; -------- 各国奈飞节点组 --------
+custom_proxy_group=美国|流媒体url-test美国.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=日本|流媒体url-test日本.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=香港|流媒体url-test香港.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=新加坡|流媒体url-test新加坡.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=英国|流媒体url-test英国.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=德国|流媒体url-test德国.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=韩国|流媒体url-test韩国.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=法国|流媒体url-test法国.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=加拿大|流媒体url-test加拿大.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=澳大利亚|流媒体url-test澳大利亚.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=俄罗斯|流媒体url-test俄罗斯.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=印度|流媒体url-test印度.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=巴西|流媒体url-test巴西.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=意大利|流媒体url-test意大利.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=荷兰|流媒体url-test荷兰.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=西班牙|流媒体url-test西班牙.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=墨西哥|流媒体url-test墨西哥.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=泰国|流媒体url-test泰国.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=越南|流媒体url-test越南.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=菲律宾|流媒体url-test菲律宾.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=马来西亚|流媒体url-test马来西亚.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=印尼|流媒体url-test印尼.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=缅甸|流媒体url-test缅甸.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=柬埔寨|流媒体url-test柬埔寨.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=老挝|流媒体url-test老挝.*流媒体.*http://www.gstatic.com/generate_204300,,50
+custom_proxy_group=文莱|流媒体url-test文莱.*流媒体.*http://www.gstatic.com/generate_204300,,50
 
-; 东南亚国家节点组
-custom_proxy_group=泰国`url-test`泰国.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=越南`url-test`越南.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=菲律宾`url-test`菲律宾.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=马来西亚`url-test`马来西亚.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=印尼`url-test`印尼.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=缅甸`url-test`缅甸.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=柬埔寨`url-test`柬埔寨.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=老挝`url-test`老挝.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=文莱`url-test`文莱.*`http://www.gstatic.com/generate_204`300,,50
+; -------- 各类服务 --------
+custom_proxy_group=微软服务select[]节点选择
+custom_proxy_group=苹果服务select[]节点选择
+custom_proxy_group=电报信息select[]节点选择
+custom_proxy_group=国外媒体select[]节点选择
 
-; 各大服务分流，全部走节点选择组
-custom_proxy_group=微软服务`select`[]节点选择
-custom_proxy_group=苹果服务`select`[]节点选择
-custom_proxy_group=电报信息`select`[]节点选择
-custom_proxy_group=国外媒体`select`[]节点选择
+; -------- 广告拦截与净化 --------
+custom_proxy_group=全球拦截select[]REJECT[]DIRECT
+custom_proxy_group=应用净化select[]REJECT[]DIRECT
 
-; 广告及应用净化拦截组
-custom_proxy_group=全球拦截`select`[]REJECT`[]DIRECT
-custom_proxy_group=应用净化`select`[]REJECT`[]DIRECT
-
-; 漏网之鱼，兜底走节点选择再直连
-custom_proxy_group=漏网之鱼`select`[]节点选择`[]全球直连
+; -------- 漏网之鱼兜底 --------
+custom_proxy_group=漏网之鱼select[]节点选择[]全球直连
 
 enable_rule_generator=true
 overwrite_original_rules=true
