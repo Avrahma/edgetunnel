@@ -2,7 +2,7 @@
 
 # ================== 规则集配置 ==================
 ruleset=自动选择,rules/ACL4SSR/Clash/LocalAreaNetwork.list
-ruleset=全球直连,[]FINAL
+ruleset=全球直连,FINAL
 
 # ================== 策略组配置 ==================
 
