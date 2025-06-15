@@ -1,12 +1,13 @@
 [custom]
 
 # ================== 规则集配置 ==================
-ruleset=局域网,rules/ACL4SSR/Clash/LocalAreaNetwork.list
+# 这里把“局域网”改成“自动选择”，和你的代理组名对应
+ruleset=自动选择,rules/ACL4SSR/Clash/LocalAreaNetwork.list
 ruleset=默认直连,[]FINAL
 
 # ================== 策略组配置 ==================
 
-# 自动选择测速组（没有节点，测试组空）
+# 自动选择测速组（含节点，由外部配置或订阅填充）
 custom_proxy_group=自动选择`url-test`自动选择.*`http://www.gstatic.com/generate_204`300,,50
 
 # 全局直连组（只有直连，没有节点）
