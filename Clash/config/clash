@@ -1,6 +1,6 @@
 [custom]
 
-; 规则集配置
+; ======= 规则集配置 =======
 ruleset=全球直连,rules/ACL4SSR/Clash/LocalAreaNetwork.list
 ruleset=全球拦截,rules/ACL4SSR/Clash/BanAD.list
 ruleset=应用净化,rules/ACL4SSR/Clash/BanProgramAD.list
@@ -15,41 +15,14 @@ ruleset=全球直连,rules/ACL4SSR/Clash/ChinaCompanyIp.list
 ruleset=全球直连,[]GEOIP,CN
 ruleset=漏网之鱼,[]FINAL
 
-; 自动选择测速组
+; ======= 智能测速分组（不被其他组引用） =======
 custom_proxy_group=自动选择`url-test`.*`http://www.gstatic.com/generate_204`300,,50
 
-; 全局直连组
+; ======= 直连组（避免循环引用） =======
 custom_proxy_group=全球直连`select`[]DIRECT
 
-; 各国测速组
-custom_proxy_group=美国`url-test`美国.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=日本`url-test`日本.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=香港`url-test`香港.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=新加坡`url-test`新加坡.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=英国`url-test`英国.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=德国`url-test`德国.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=韩国`url-test`韩国.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=法国`url-test`法国.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=加拿大`url-test`加拿大.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=澳大利亚`url-test`澳大利亚.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=俄罗斯`url-test`俄罗斯.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=印度`url-test`印度.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=巴西`url-test`巴西.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=意大利`url-test`意大利.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=荷兰`url-test`荷兰.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=西班牙`url-test`西班牙.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=墨西哥`url-test`墨西哥.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=泰国`url-test`泰国.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=越南`url-test`越南.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=菲律宾`url-test`菲律宾.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=马来西亚`url-test`马来西亚.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=印尼`url-test`印尼.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=缅甸`url-test`缅甸.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=柬埔寨`url-test`柬埔寨.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=老挝`url-test`老挝.*`http://www.gstatic.com/generate_204`300,,50
-custom_proxy_group=文莱`url-test`文莱.*`http://www.gstatic.com/generate_204`300,,50
-
-; 国家智能分流组（国内直连，国外只走对应国家节点）
+; ======= 智能分流（所有国家） =======
+# 每个国家一个组，支持国内直连 + 国外只通过该国代理
 custom_proxy_group=美国-智能分流`select`[]全球直连`[]美国
 custom_proxy_group=日本-智能分流`select`[]全球直连`[]日本
 custom_proxy_group=香港-智能分流`select`[]全球直连`[]香港
@@ -77,16 +50,49 @@ custom_proxy_group=柬埔寨-智能分流`select`[]全球直连`[]柬埔寨
 custom_proxy_group=老挝-智能分流`select`[]全球直连`[]老挝
 custom_proxy_group=文莱-智能分流`select`[]全球直连`[]文莱
 
-; 服务规则分流 — 支持所有国家智能分流，默认指向美国-智能分流，可自行切换
-custom_proxy_group=微软服务`select`[]美国-智能分流`[]日本-智能分流`[]香港-智能分流`[]新加坡-智能分流`[]英国-智能分流`[]德国-智能分流`[]韩国-智能分流`[]法国-智能分流`[]加拿大-智能分流`[]澳大利亚-智能分流`[]俄罗斯-智能分流`[]印度-智能分流`[]巴西-智能分流`[]意大利-智能分流`[]荷兰-智能分流`[]西班牙-智能分流`[]墨西哥-智能分流`[]泰国-智能分流`[]越南-智能分流`[]菲律宾-智能分流`[]马来西亚-智能分流`[]印尼-智能分流`[]缅甸-智能分流`[]柬埔寨-智能分流`[]老挝-智能分流`[]文莱-智能分流
-custom_proxy_group=苹果服务`select`[]美国-智能分流`[]日本-智能分流`[]香港-智能分流`[]新加坡-智能分流`[]英国-智能分流`[]德国-智能分流`[]韩国-智能分流`[]法国-智能分流`[]加拿大-智能分流`[]澳大利亚-智能分流`[]俄罗斯-智能分流`[]印度-智能分流`[]巴西-智能分流`[]意大利-智能分流`[]荷兰-智能分流`[]西班牙-智能分流`[]墨西哥-智能分流`[]泰国-智能分流`[]越南-智能分流`[]菲律宾-智能分流`[]马来西亚-智能分流`[]印尼-智能分流`[]缅甸-智能分流`[]柬埔寨-智能分流`[]老挝-智能分流`[]文莱-智能分流
-custom_proxy_group=电报信息`select`[]美国-智能分流`[]日本-智能分流`[]香港-智能分流`[]新加坡-智能分流`[]英国-智能分流`[]德国-智能分流`[]韩国-智能分流`[]法国-智能分流`[]加拿大-智能分流`[]澳大利亚-智能分流`[]俄罗斯-智能分流`[]印度-智能分流`[]巴西-智能分流`[]意大利-智能分流`[]荷兰-智能分流`[]西班牙-智能分流`[]墨西哥-智能分流`[]泰国-智能分流`[]越南-智能分流`[]菲律宾-智能分流`[]马来西亚-智能分流`[]印尼-智能分流`[]缅甸-智能分流`[]柬埔寨-智能分流`[]老挝-智能分流`[]文莱-智能分流
-custom_proxy_group=国外媒体`select`[]美国-智能分流`[]日本-智能分流`[]香港-智能分流`[]新加坡-智能分流`[]英国-智能分流`[]德国-智能分流`[]韩国-智能分流`[]法国-智能分流`[]加拿大-智能分流`[]澳大利亚-智能分流`[]俄罗斯-智能分流`[]印度-智能分流`[]巴西-智能分流`[]意大利-智能分流`[]荷兰-智能分流`[]西班牙-智能分流`[]墨西哥-智能分流`[]泰国-智能分流`[]越南-智能分流`[]菲律宾-智能分流`[]马来西亚-智能分流`[]印尼-智能分流`[]缅甸-智能分流`[]柬埔寨-智能分流`[]老挝-智能分流`[]文莱-智能分流
-custom_proxy_group=漏网之鱼`select`[]美国-智能分流`[]日本-智能分流`[]香港-智能分流`[]新加坡-智能分流`[]英国-智能分流`[]德国-智能分流`[]韩国-智能分流`[]法国-智能分流`[]加拿大-智能分流`[]澳大利亚-智能分流`[]俄罗斯-智能分流`[]印度-智能分流`[]巴西-智能分流`[]意大利-智能分流`[]荷兰-智能分流`[]西班牙-智能分流`[]墨西哥-智能分流`[]泰国-智能分流`[]越南-智能分流`[]菲律宾-智能分流`[]马来西亚-智能分流`[]印尼-智能分流`[]缅甸-智能分流`[]柬埔寨-智能分流`[]老挝-智能分流`[]文莱-智能分流
+; ======= 各国测速组（可选，仅用于上面引用）=======
+custom_proxy_group=美国`url-test`美国.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=日本`url-test`日本.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=香港`url-test`香港.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=新加坡`url-test`新加坡.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=英国`url-test`英国.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=德国`url-test`德国.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=韩国`url-test`韩国.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=法国`url-test`法国.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=加拿大`url-test`加拿大.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=澳大利亚`url-test`澳大利亚.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=俄罗斯`url-test`俄罗斯.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=印度`url-test`印度.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=巴西`url-test`巴西.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=意大利`url-test`意大利.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=荷兰`url-test`荷兰.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=西班牙`url-test`西班牙.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=墨西哥`url-test`墨西哥.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=泰国`url-test`泰国.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=越南`url-test`越南.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=菲律宾`url-test`菲律宾.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=马来西亚`url-test`马来西亚.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=印尼`url-test`印尼.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=缅甸`url-test`缅甸.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=柬埔寨`url-test`柬埔寨.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=老挝`url-test`老挝.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=文莱`url-test`文莱.*`http://www.gstatic.com/generate_204`300,,50
 
-; 广告拦截
+; ======= 节点选择组（供规则中使用） =======
+custom_proxy_group=节点选择`select`[]美国-智能分流`[]日本-智能分流`[]香港-智能分流`[]新加坡-智能分流`[]英国-智能分流`[]德国-智能分流`[]韩国-智能分流`[]法国-智能分流`[]加拿大-智能分流`[]澳大利亚-智能分流`[]俄罗斯-智能分流`[]印度-智能分流`[]巴西-智能分流`[]意大利-智能分流`[]荷兰-智能分流`[]西班牙-智能分流`[]墨西哥-智能分流`[]泰国-智能分流`[]越南-智能分流`[]菲律宾-智能分流`[]马来西亚-智能分流`[]印尼-智能分流`[]缅甸-智能分流`[]柬埔寨-智能分流`[]老挝-智能分流`[]文莱-智能分流
+
+; ======= 其他服务 =======
+custom_proxy_group=微软服务`select`[]节点选择
+custom_proxy_group=苹果服务`select`[]节点选择
+custom_proxy_group=电报信息`select`[]节点选择
+custom_proxy_group=国外媒体`select`[]节点选择
+
+; ======= 广告拦截 =======
 custom_proxy_group=全球拦截`select`[]REJECT`[]DIRECT
 custom_proxy_group=应用净化`select`[]REJECT`[]DIRECT
+
+; ======= 漏网之鱼 =======
+custom_proxy_group=漏网之鱼`select`[]节点选择`[]全球直连
 
 enable_rule_generator=true
 overwrite_original_rules=true
