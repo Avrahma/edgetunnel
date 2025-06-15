@@ -1,45 +1,41 @@
 [custom]
+;不要随意改变关键字，否则会导致出错
+;acl4SSR规则
 
-; ======= 规则集配置 =======
-ruleset=全球直连,rules/ACL4SSR/Clash/LocalAreaNetwork.list
-ruleset=全球拦截,rules/ACL4SSR/Clash/BanAD.list
-ruleset=应用净化,rules/ACL4SSR/Clash/BanProgramAD.list
-ruleset=微软服务,rules/ACL4SSR/Clash/Microsoft.list
-ruleset=苹果服务,rules/ACL4SSR/Clash/Apple.list
-ruleset=电报信息,rules/ACL4SSR/Clash/Telegram.list
-ruleset=国外媒体,rules/ACL4SSR/Clash/ProxyMedia.list
-ruleset=节点选择,rules/ACL4SSR/Clash/ProxyGFWlist.list
-ruleset=全球直连,rules/ACL4SSR/Clash/ChinaIp.list
-ruleset=全球直连,rules/ACL4SSR/Clash/ChinaDomain.list
-ruleset=全球直连,rules/ACL4SSR/Clash/ChinaCompanyIp.list
-ruleset=全球直连,[]GEOIP,CN
-ruleset=漏网之鱼,[]FINAL
+;去广告：支持
+;自动测速：支持
+;微软分流：支持
+;苹果分流：支持
+;增强中国IP段：支持
+;增强国外GFW：支持
 
-; ======= 代理组定义 =======
-custom_proxy_group=全球直连`select`[]DIRECT
+ruleset=🎯 全球直连,rules/ACL4SSR/Clash/LocalAreaNetwork.list
+ruleset=🛑 全球拦截,rules/ACL4SSR/Clash/BanAD.list
+ruleset=🍃 应用净化,rules/ACL4SSR/Clash/BanProgramAD.list
+ruleset=🎯 全球直连,rules/ACL4SSR/Clash/GoogleCN.list
+ruleset=🎯 全球直连,rules/ACL4SSR/Clash/Ruleset/SteamCN.list
+ruleset=Ⓜ️ 微软服务,rules/ACL4SSR/Clash/Microsoft.list
+ruleset=🍎 苹果服务,rules/ACL4SSR/Clash/Apple.list
+ruleset=📲 电报信息,rules/ACL4SSR/Clash/Telegram.list
+ruleset=🌍 国外媒体,rules/ACL4SSR/Clash/ProxyMedia.list
+ruleset=🚀 节点选择,rules/ACL4SSR/Clash/ProxyGFWlist.list
+ruleset=🎯 全球直连,rules/ACL4SSR/Clash/ChinaIp.list
+ruleset=🎯 全球直连,rules/ACL4SSR/Clash/ChinaDomain.list
+ruleset=🎯 全球直连,rules/ACL4SSR/Clash/ChinaCompanyIp.list
+;ruleset=🎯 全球直连,[]GEOIP,LAN
+ruleset=🎯 全球直连,[]GEOIP,CN
+ruleset=🐟 漏网之鱼,[]FINAL
 
-; 通过正则自动匹配所有含“美国”字符的节点，自动测速
-custom_proxy_group=美国-智能分流`url-test`[]^美国.*`http://www.gstatic.com/generate_204`300,30,50
+custom_proxy_group=🚀 节点选择`select`[]♻️ 时光太浅1994`[]DIRECT`.*
+custom_proxy_group=♻️ 时光太浅1994`url-test`.*`http://www.gstatic.com/generate_204`300,,50
+custom_proxy_group=🌍 国外媒体`select`[]🚀 节点选择`[]♻️ 时光太浅1994`[]🎯 全球直连`.*
+custom_proxy_group=📲 电报信息`select`[]🚀 节点选择`[]🎯 全球直连`.*
+custom_proxy_group=Ⓜ️ 微软服务`select`[]🎯 全球直连`[]🚀 节点选择`.*
+custom_proxy_group=🍎 苹果服务`select`[]🚀 节点选择`[]🎯 全球直连`.*
+custom_proxy_group=🎯 全球直连`select`[]DIRECT`[]🚀 节点选择`[]♻️ 时光太浅1994
+custom_proxy_group=🛑 全球拦截`select`[]REJECT`[]DIRECT
+custom_proxy_group=🍃 应用净化`select`[]REJECT`[]DIRECT
+custom_proxy_group=🐟 漏网之鱼`select`[]🚀 节点选择`[]🎯 全球直连`[]♻️ 时光太浅1994`.*
 
-custom_proxy_group=节点选择`select`[]美国-智能分流
-
-; ======= 特定服务策略 =======
-custom_proxy_group=微软服务`select`[]节点选择
-custom_proxy_group=苹果服务`select`[]节点选择
-custom_proxy_group=电报信息`select`[]节点选择
-custom_proxy_group=国外媒体`select`[]节点选择
-
-; ======= 广告拦截策略 =======
-custom_proxy_group=全球拦截`select`[]REJECT`[]DIRECT
-custom_proxy_group=应用净化`select`[]REJECT`[]DIRECT
-
-; ======= 漏网之鱼兜底 =======
-custom_proxy_group=漏网之鱼`select`[]节点选择`[]全球直连
-
-; ======= 规则配置 =======
-rule=GEOIP,CN,全球直连
-rule=FINAL,美国-智能分流
-
-; ======= 规则自动生成配置 =======
 enable_rule_generator=true
 overwrite_original_rules=true
