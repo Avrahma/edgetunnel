@@ -1,7 +1,7 @@
 ; 规则集配置示例（保持默认，可自行替换）
 ruleset=全球直连,rules/ACL4SSR/Clash/ChinaIp.list
 ruleset=全球直连,rules/ACL4SSR/Clash/ChinaDomain.list
-ruleset=全球拦截,rules/ACL4SSR/Clash/BanAD.list
+#ruleset=全球拦截,rules/ACL4SSR/Clash/BanAD.list
 ruleset=漏网之鱼,[]FINAL
 
 ; 策略组配置
